@@ -17,6 +17,9 @@ import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/hint/show-hint';
 import 'codemirror/addon/hint/xml-hint';
+import 'codemirror/addon/fold/foldcode';
+import 'codemirror/addon/fold/brace-fold';
+import 'codemirror/addon/fold/foldgutter';
 
 const completeAfter = (cm: Editor, predicate: () => boolean) => {
   const CodeMirror = cm.constructor;
@@ -248,7 +251,11 @@ export const CodeEditor = ({ code, onChange, previewCode, hints }: Props) => {
         autoCloseTags: true,
         autoCloseBrackets: true,
         theme: 'neo',
-        gutters: [styles.gutter],
+        // gutters: [styles.gutter],
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+        foldGutter: true,
+        foldOptions: { minFoldSize: 1 },
+        // lineNumbers: true,
         hintOptions: { schemaInfo: hints },
         viewportMargin: 50,
         extraKeys: {
